@@ -34,6 +34,7 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
     msg_id = int(msg_link.split("/")[-1]) + int(i)
     height, width, duration, thumb_path = 90, 90, 0, None
     if ('t.me/c/' in msg_link) or ('t.me/b/' in msg_link):
+        print("has /c/ or /b/")
         if 't.me/b/' in msg_link:
             chat = str(msg_link.split("/")[-2])
         else:
@@ -198,8 +199,9 @@ async def get_msg(userbot, client, bot, sender, edit_id, msg_link, i):
             pass
         await edit.delete()
     else:
+        print("does not have /b/ or /c/")
         edit = await client.edit_message_text(sender, edit_id, "Cloning.")
-        chat =  msg_link.split("t.me")[1].split("/")[1]
+        chat = msg_link.split("t.me")[1].split("/")[1]
         try:
             msg = await client.get_messages(chat, msg_id)
             if msg.empty:
